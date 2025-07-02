@@ -42,6 +42,9 @@ class ApiService {
         }
         throw new Error(errorText || `HTTP error! status: ${response.status}`);
       }
+      if (config.method === 'DELETE' || response.status === 204) {
+        return null as T;
+      }
       return await response.json();
     } catch (error) {
       console.error('API request failed:', error);
